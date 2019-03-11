@@ -1,0 +1,10 @@
+Mon 3 08:35:09 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196
+Mon 3 08:35:41 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196
+Mon 3 08:36:05 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196
+Mon 3 08:36:30 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196
+Mon 3 08:37:29 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196
+Mon 3 08:38:22 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196
+Mon 3 08:38:36 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196
+Mon 3 09:39:34 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196
+Mon 3 09:40:13 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196
+Mon 3 09:41:44 DESKTOP-86C0JPQ php: [ERROR] Uncaught exception: syntax error, unexpected '$query' (T_VARIABLE) in D:\xampp\htdocs\contracts\app\models\Contract.php on line 196

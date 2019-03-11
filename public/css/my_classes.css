@@ -1,0 +1,18 @@
+.csr-pointer{
+	cursor: pointer;
+}
+.calc{
+	font-size:  9pt;
+}
+.nonedit{
+    color: transparent !important;
+    text-shadow: 0 0 0 black;
+    text-align: center;
+
+}
+.edited{
+	font-style: oblique;
+	font-weight: lighter;
+	color: black !important;
+	outline: 2px solid #66f !important;
+}
