@@ -79,6 +79,20 @@ class DocumentController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
     }
 
+    public function getAction()
+    {
+        $documents = Document::find();
+        $data=[];
+        foreach ($documents as $document) {
+            $data[]=[
+                'id'=>$document->id,
+                'name' => $document->template,
+            ];
+        }
+        $this->view->disable();
+        echo json_encode($data);
+    }
+
     /**
      * Displays the creation form
      */
@@ -288,7 +302,7 @@ class DocumentController extends ControllerBase
             return;
         }
         $contract = null;
-        if(!$document->contract){            
+        if($contractId!=null){            
             $contract = Contract::findFirst($contractId); 
         }
 

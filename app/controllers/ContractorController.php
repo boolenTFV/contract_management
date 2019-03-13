@@ -64,6 +64,7 @@ class ContractorController extends ControllerBase
             echo json_encode($data);
         }
     }
+    
     /**
      * Searches for contractor
      */

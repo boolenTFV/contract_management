@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <table id='templatesTableDefault'>
+        <table id='templatesTable' class='table'>
             <tr>
                 <th>Шаблон</th>
             </tr>
@@ -123,7 +123,7 @@
                     
                 </td>
                 <td>
-                    <?= $this->tag->linkTo(['#', '<i class="fas fa-file-alt"></i>', 'class' => 'text-primary', 'data-toggle' => 'modal', 'data-target' => '#templatesModal']) ?>
+                    <?= $this->tag->linkTo(['#', '<i class="fas fa-file-alt"></i>', 'class' => 'text-primary get-template', 'data-contract' => $contract->id, 'data-toggle' => 'modal', 'data-target' => '#templatesModal']) ?>
                 </td>
                 <td><?= $this->tag->linkTo(['contract/edit/' . $contract->id, '<i class="fas fa-pencil-alt "></i>', 'class' => 'text-primary']) ?></td>
                 <td><?= $this->tag->linkTo(['contract/delete/' . $contract->id, '<i class="fas fa-trash-alt"></i>', 'class' => 'text-danger']) ?></td>

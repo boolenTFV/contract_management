@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <table id='templatesTable'>
+        <table id='templatesTable' class='table'>
             <tr>
                 <th>Шаблон</th>
             </tr>
@@ -126,8 +126,11 @@
                     
                 </td>
                 <td>
-                    {{ link_to("#", '<i class="fas fa-file-alt"></i>', 'class':'text-primary get-template','data-contract':contract.id,'data-toggle':"modal", 'data-target':'#templatesModal') }}
-                    }
+                    {{ link_to("#", '<i class="fas fa-file-alt"></i>', 
+                                'class':'text-primary get-template',
+                                'data-contract':contract.id,
+                                'data-toggle':"modal", 
+                                'data-target':'#templatesModal') }}
                 </td>
                 <td>{{ link_to("contract/edit/"~contract.id, '<i class="fas fa-pencil-alt "></i>', 'class':'text-primary') }}</td>
                 <td>{{ link_to("contract/delete/"~contract.id, '<i class="fas fa-trash-alt"></i>', 'class':'text-danger') }}</td>

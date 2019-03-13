@@ -52,14 +52,14 @@ class Document extends \Phalcon\Mvc\Model
         if($contract==null){
             $contract = $this->getContract();
         }
-
+        echo $contract->contract_number;
         $config = $this->getDI()->get('config');
         $templatePath = $config->application->templatesDir.'/'.$this->template.'.docx';
         $filepath = $config->application->fileDir.'/'.$this->template.'.docx';
         $templateProcessor = new TemplateProcessor($templatePath);
-        $values = get_object_vars($contract);
-        foreach ($values as $key => $value){
-            $templateProcessor->setValue($key, $value);
+        $values = $contract->getKeys();
+        foreach ($values as $key){
+            $templateProcessor->setValue($key, $contract->$key);
         }
 
         $templateProcessor->saveAs($filepath);

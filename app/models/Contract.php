@@ -159,6 +159,18 @@ class Contract extends \Phalcon\Mvc\Model
      */
     public $contractor_id;
 
+    public function getKeys(){
+
+        return ['contract_number',
+                'theme',
+                'product_name', 
+                'fine',
+                'surcharge',
+                'date',
+                'status',
+                'product_name'];
+    }
+
     /**
      * Initialize method for model.
      */

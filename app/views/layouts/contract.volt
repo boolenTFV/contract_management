@@ -57,7 +57,40 @@
 		}
 	});
 
-	$().load(function (){
-		var getTemplateBtn = $('.get-template')
-	})
+
+	var getTemplateBtn = $('.get-template').click(function (){
+		let id = $(this).data('contract');
+		$.ajax({
+			url: '{{url.get('document/get')}}',
+			dataType:'json',
+			success: function (data){
+				let tabel = $('#templatesTable');
+				tabel.html('');
+				let tr;
+				let tdName;
+				let td;
+				let icon = '<i class="fas fa-file-download fa-2x"></i>';
+				let a;
+				for(i in data){
+					tr = $('<tr>');
+					td = $('<td>');
+					td.text(data[i]['name']);
+					tr.append(td);
+
+					td = $('<td>').addClass('text-right');
+					a=$('<a>');
+					a.attr("href","{{url.get('document/generate')}}/"+data[i]['id']+'/'+id);
+					a.html(icon);
+					td.append(a);
+					tr.append(td);
+					
+					tabel.append(tr);
+				}				
+				
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				alert('Ошибка: '+textStatus);
+			}
+		});
+	});
 </script>
