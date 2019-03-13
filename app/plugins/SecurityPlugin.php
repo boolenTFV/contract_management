@@ -132,7 +132,7 @@ class SecurityPlugin extends Plugin
 		    'user'			=> ['index','edit','create','search','new','save','delete','active'],
 		    'record'		=> ['index','edit','create','search','new','save','delete'],
 		    'accounting'	=> ['index','edit','create','search','new','save','delete'],
-		    'document'		=> ['index','edit','create','search','new','save','delete','generate'],
+		    'document'		=> ['index','search','generate','get'],
 		    'contract'		=> ['index','edit','create','search','new','save','delete','setstatus'],
 		    'department'	=> ['index','edit','create','search','new','save','delete'],
 		    'employee'		=> ['index','edit','create','search','new','save','delete'],

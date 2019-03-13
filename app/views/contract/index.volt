@@ -59,7 +59,6 @@
                 <th>Заказчик</th>
                 <th>Статус</th>
                 <th></th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -125,15 +124,15 @@
 
                     
                 </td>
-                <td>
+                <td class="text-center">
                     {{ link_to("#", '<i class="fas fa-file-alt"></i>', 
-                                'class':'text-primary get-template',
-                                'data-contract':contract.id,
-                                'data-toggle':"modal", 
-                                'data-target':'#templatesModal') }}
+                                    'class':'text-primary get-template pr-1',
+                                    'data-contract':contract.id,
+                                    'data-toggle':"modal", 
+                                    'data-target':'#templatesModal') }}
+                    {{ link_to("contract/edit/"~contract.id, '<i class="fas fa-pencil-alt pr-1"></i>', 'class':'text-primary') }}
+                    {{ link_to("contract/delete/"~contract.id, '<i class="fas fa-trash-alt"></i>', 'class':'text-danger') }}
                 </td>
-                <td>{{ link_to("contract/edit/"~contract.id, '<i class="fas fa-pencil-alt "></i>', 'class':'text-primary') }}</td>
-                <td>{{ link_to("contract/delete/"~contract.id, '<i class="fas fa-trash-alt"></i>', 'class':'text-danger') }}</td>
             </tr>
         {% endfor %}
        
