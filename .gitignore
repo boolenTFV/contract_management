@@ -2,3 +2,6 @@
 *.pptx
 *.pptx
 *.xls
+tests\report\
+cache
+old_chache

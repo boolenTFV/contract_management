@@ -25,7 +25,7 @@ class ContractController extends ControllerBase
 
         $parameters = $this->persistent->parameters;
         $this->tag->setDefault("search", $parameters);
-        $contract = Contract::searchColumns($parameters);
+        $contract = Contract::searchColumns($parameters)->execute();
         if (count($contract) == 0) {
             $this->flash->notice("Поиcк не дал результатов.");
         }
@@ -76,7 +76,7 @@ class ContractController extends ControllerBase
         }
 
         $parameters = $this->persistent->parameters;
-        $contract = Contract::searchColumns($parameters);
+        $contract = Contract::searchColumns($parameters)->execute();
         if (count($contract) == 0) {
             $this->flash->notice("Поиcк не дал результатов.");
         }
@@ -283,13 +283,12 @@ class ContractController extends ControllerBase
 
     public function setstatusAction()
     {
-
+        $this->view->disable();
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "contract",
                 'action' => 'index'
             ]);
-
             return;
         }
 
@@ -298,12 +297,6 @@ class ContractController extends ControllerBase
 
         if (!$contract) {
             $this->flash->error("Договор не существует " . $id);
-
-            $this->dispatcher->forward([
-                'controller' => "contract",
-                'action' => 'index'
-            ]);
-
             return;
         }
         $contract->status = $this->request->getPost("status");
@@ -313,22 +306,10 @@ class ContractController extends ControllerBase
             foreach ($contract->getMessages() as $message) {
                 $this->flash->error($message);
             }
-
-            $this->dispatcher->forward([
-                'controller' => "contract",
-                'action' => 'edit',
-                'params' => [$contract->id]
-            ]);
-
             return;
         }
 
         $this->flash->success("Статус договора ".$contract->contract_number." был успешно изменен!");
-
-        $this->dispatcher->forward([
-            'controller' => "contract",
-            'action' => 'index'
-        ]);
     }
 
     /**

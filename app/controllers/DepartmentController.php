@@ -26,7 +26,7 @@ class DepartmentController extends ControllerBase
         }
         $parameters = $this->persistent->parameters;
         $this->tag->setDefault("search", $parameters);
-        $department = Department::searchColumns($parameters);
+        $department = Department::searchColumns($parameters)->execute();
         if (count($department) == 0) {
             $this->flash->notice("Поиск не дал результатов.");
         }

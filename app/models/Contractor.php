@@ -1,6 +1,6 @@
 <?php
 
-class Contractor extends \Phalcon\Mvc\Model
+class Contractor extends SuperModel
 {
 
     /**
@@ -43,6 +43,8 @@ class Contractor extends \Phalcon\Mvc\Model
 
     /**
      * Initialize method for model.
+     * 
+     * @codeCoverageIgnore
      */
     public function initialize()
     {
@@ -53,59 +55,13 @@ class Contractor extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return Contractor[]|Contractor|\Phalcon\Mvc\Model\ResultSetInterface
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return Contractor|\Phalcon\Mvc\Model\ResultInterface
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
-    /**
      * Returns table name mapped in the model.
      *
+     * @codeCoverageIgnore
      * @return string
      */
     public function getSource()
     {
         return 'contractor';
     }
-
-    public static function searchColumns($searchStr)
-    {
-        $search = explode(' ',$searchStr);
-        $searchColumns=['name','surename','position'];
-        $query = self::query();
-        $paramIndex = 0;
-        $bindMass=[];
-        foreach ($search as $key => $tag) {
-            $andQueryStr = '';
-            foreach ($searchColumns as $colIndex => $column) {
-                if($colIndex===0){
-                    $andQueryStr = $column . ' LIKE ?'.$paramIndex;
-                }else{
-                    $andQueryStr .= ' OR '.$column . ' LIKE ?'.$paramIndex;
-                }      
-            }  
-            $bindMass[$paramIndex] = '%' . $tag . '%';
-            $paramIndex++;
-            $query->andWhere($andQueryStr);
-        }
-        $query->bind($bindMass);
-        return $query->execute();
-     }
-
 }

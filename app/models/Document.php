@@ -1,6 +1,10 @@
 <?php
+
 use  PhpOffice\PhpWord\TemplateProcessor;
-class Document extends \Phalcon\Mvc\Model
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\PresenceOf;
+
+class Document extends SuperModel
 {
 
     /**
@@ -19,7 +23,7 @@ class Document extends \Phalcon\Mvc\Model
      */
     public $contract_id;
 
-    /**
+    /** 
      *
      * @var string
      * @Column(column="template", type="string", length=255, nullable=true)
@@ -28,6 +32,10 @@ class Document extends \Phalcon\Mvc\Model
 
     private $_file;
 
+
+    /**
+     * Сохранение файла
+     */
     public function saveFile($file){
         $this->_file = $file;
         $config = $this->getDI()->get('config');
@@ -36,11 +44,17 @@ class Document extends \Phalcon\Mvc\Model
             unlink($filepath); 
         }
         if(!$file->moveTo($filepath)){
-            echo $filepath;
-            throw new Exception("Error Processing Request", 1);
+            return true;
+        } else {
+            return false;
         }
     }
 
+    /**
+     * Получение файла
+     * 
+     * @codeCoverageIgnore
+     */
     public function getFile($file){
         $filepath = $this->config->application->templatesDir.'/'.$this->template.'.docx';
         if(!$this->_file && file_exists($filepath)){
@@ -48,6 +62,24 @@ class Document extends \Phalcon\Mvc\Model
         }
     }
 
+    /**
+     * удаление файла
+     */
+    public function deleteFile($file){
+        $filepath = $this->config->application->templatesDir.'/'.$this->template.'.docx';
+        if(!$this->_file && file_exists($filepath)){
+            if(unlink($filepath)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Генерация файла doc из шаблона
+     * 
+     * @codeCoverageIgnore
+     */
     public function generateDoc($contract=null){
         if($contract==null){
             $contract = $this->getContract();
@@ -64,12 +96,12 @@ class Document extends \Phalcon\Mvc\Model
 
         $templateProcessor->saveAs($filepath);
         return 'files/'.$this->template.'.docx';
-
-            
     }
 
     /**
-     * Initialize method for model.
+     * Инициализация модели
+     *
+     * @codeCoverageIgnore
      */
     public function initialize()
     {
@@ -79,35 +111,22 @@ class Document extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Allows to query a set of records that match the specified conditions
+     * Валидация бизнес логики
      *
-     * @param mixed $parameters
-     * @return Document[]|Document|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return boolean
      */
-    public static function find($parameters = null)
+    public function validation()
     {
-        return parent::find($parameters);
-    }
+        $validator = new Validation();
 
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return Document|\Phalcon\Mvc\Model\ResultInterface
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
+        $validator->add(
+            "template",
+            new PresenceOf(
+                [
+                    "message" => "Введите название шаблона документа"
+                ]
+            )
+        );
+        return $this->validate($validator);
     }
-
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'document';
-    }
-
 }

@@ -16,6 +16,17 @@
 
 <?= $this->tag->form(['contract/save', 'method' => 'post', 'autocomplete' => 'off', 'class' => 'form-horizontal']) ?>
 
+<div class="form-row form-group">
+    <div class="col-3">
+        <label for="fieldDepartmentId" class="col-sm-2 control-label">Подразделение/Department</label>
+    </div>
+    <div>
+        <div class="col-sm-10">
+            <?= $this->tag->hiddenField(['department_id', 'type' => 'numeric', 'class' => 'form-control', 'id' => 'fieldDepartmentId']) ?>
+            <?= $this->tag->textField(['department', 'class' => 'form-control', 'id' => 'department']) ?>
+        </div>
+    </div>
+</div>
 <div class="form-group">
     <label for="fieldDepartmentId" class="col-sm-2 control-label">Department</label>
     <div class="col-sm-10">

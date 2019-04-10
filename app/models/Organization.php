@@ -1,6 +1,6 @@
 <?php
 
-class Organization extends \Phalcon\Mvc\Model
+class Organization extends SuperModel
 {
 
     /**
@@ -42,6 +42,8 @@ class Organization extends \Phalcon\Mvc\Model
 
     /**
      * Initialize method for model.
+     *
+     * @codeCoverageIgnore
      */
     public function initialize()
     {
@@ -50,61 +52,15 @@ class Organization extends \Phalcon\Mvc\Model
         $this->hasMany('id', 'Contractor', 'organization_id', ['alias' => 'Contractor']);
     }
 
-    /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return Organization[]|Organization|\Phalcon\Mvc\Model\ResultSetInterface
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return Organization|\Phalcon\Mvc\Model\ResultInterface
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
 
     /**
      * Returns table name mapped in the model.
      *
+     * @codeCoverageIgnore
      * @return string
      */
     public function getSource()
     {
         return 'organization';
     }
-
-        //поиск по полям
-    public static function searchColumns($searchStr)
-    {
-        $search = explode(' ',$searchStr);
-        $searchColumns=['name','index','bank_index','bank_account'];
-        $query = self::query();
-        $paramIndex = 0;
-        $bindMass=[];
-        foreach ($search as $key => $tag) {
-            $andQueryStr = '';
-            foreach ($searchColumns as $colIndex => $column) {
-                if($colIndex===0){
-                    $andQueryStr = $column . ' LIKE ?'.$paramIndex;
-                }else{
-                    $andQueryStr .= ' OR '.$column . ' LIKE ?'.$paramIndex;
-                }      
-            }  
-            $bindMass[$paramIndex] = '%' . $tag . '%';
-            $paramIndex++;
-            $query->andWhere($andQueryStr);
-        }
-        $query->bind($bindMass);
-        return $query->execute();
-     }
-
 }

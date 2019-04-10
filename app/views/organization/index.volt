@@ -27,10 +27,10 @@
         <thead>
             <tr>
                 <th>Id</th>
-            <th>Name</th>
-            <th>Index</th>
-            <th>Bank Of Index</th>
-            <th>Bank Of Account</th>
+            <th>Название</th>
+            <th>Почтовый индекс</th>
+            <th>Индекс в банке</th>
+            <th>Счет в банке</th>
 
                 <th></th>
                 <th></th>

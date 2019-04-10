@@ -1,6 +1,11 @@
 <?php
 
-class Department extends \Phalcon\Mvc\Model
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\Email as EmailValidator;
+use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Regex as RegexValidator;
+
+class Department extends SuperModel
 {
 
     /**
@@ -34,7 +39,9 @@ class Department extends \Phalcon\Mvc\Model
     public $code;
 
     /**
-     * Initialize method for model.
+     * Инициализация модели
+     *
+     * @codeCoverageIgnore
      */
     public function initialize()
     {
@@ -45,31 +52,11 @@ class Department extends \Phalcon\Mvc\Model
         $this->hasMany('id', 'User', 'department_id', ['alias' => 'User']);
     }
 
-    /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return Department[]|Department|\Phalcon\Mvc\Model\ResultSetInterface
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
 
     /**
-     * Allows to query the first record that match the specified conditions
+     * Возвращает название таблицы БД
      *
-     * @param mixed $parameters
-     * @return Department|\Phalcon\Mvc\Model\ResultInterface
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
-    /**
-     * Returns table name mapped in the model.
-     *
+     * @codeCoverageIgnore
      * @return string
      */
     public function getSource()
@@ -77,29 +64,30 @@ class Department extends \Phalcon\Mvc\Model
         return 'department';
     }
 
-    //поиск по полям
-    public static function searchColumns($searchStr)
+    /**
+     * Валидация полей
+     *
+     * @return boolean
+     */
+    public function validation()
     {
-        $search = explode(' ',$searchStr);
-        $searchColumns=['name','abbreviation','code'];
-        $query = self::query();
-        $paramIndex = 0;
-        $bindMass=[];
-        foreach ($search as $key => $tag) {
-            $andQueryStr = '';
-            foreach ($searchColumns as $colIndex => $column) {
-                if($colIndex===0){
-                    $andQueryStr = $column . ' LIKE ?'.$paramIndex;
-                }else{
-                    $andQueryStr .= ' OR '.$column . ' LIKE ?'.$paramIndex;
-                }      
-            }  
-            $bindMass[$paramIndex] = '%' . $tag . '%';
-            $paramIndex++;
-            $query->andWhere($andQueryStr);
-        }
-        $query->bind($bindMass);
-        return $query->execute();
-     }
+        $validator = new Validation();
 
+        $validator->add(
+            [
+                "name",
+                "abbreviation",
+                "code"
+            ],
+            new PresenceOf(
+                [
+                    "message" => [
+                        "name" => "Название подразделения - обязательное поле"
+                    ],
+                ]
+            )
+        );
+
+        return $this->validate($validator);
+    }
 }

@@ -30,6 +30,8 @@
     </p>
 </div>
 
+<div id = 'alerts'>
+</div>
 
 
 <?= $this->tag->form(['contract/index', 'method' => 'post', 'autocomplete' => 'off', 'class' => 'form-inline pb-4']) ?>
@@ -58,7 +60,6 @@
                 <th>Дата окончания</th>
                 <th>Заказчик</th>
                 <th>Статус</th>
-                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -89,12 +90,14 @@
                 <td><?= $contract->end_date ?></td>
                 <td><?= $contract->contractor->organization->name ?></td>
                 <td>
+                    <?= $contract->status ?>
                     <?php if ($role != 'user') { ?>
-                            <?= $this->tag->form(['contract/setstatus', 'method' => 'post', 'class' => 'form-inline mr-0 p-0']) ?>
+
                              <div class="form-group mr-0 p-0">
-                            <?= $this->tag->hiddenField(['id', 'value' => $contract->id]) ?>
                             <?php $options = ['unverified' => 'Не проверен', 'verified' => 'Проверен', 'active' => 'Активен', 'closed' => 'Закрыт']; ?>
-                            <select name ='status' class="bg-light form-control">
+
+                            <select name ='status' data-id = '<?= $contract->id ?>' class="bg-light form-control">
+
                                 <?php foreach ($options as $value => $option) { ?>
                                     <?php if ($value == $contract->status) { ?>
                                         <option value="<?= $value ?>" selected>
@@ -106,15 +109,8 @@
                                         </option>
                                     <?php } ?>
                                 <?php } ?>
-
                             </select>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary ml-1">
-                                    <i class="fas fa-save"></i>
-                                </button>
-                            </div>
                         </div>
-                        <?= $this->tag->endForm() ?>
                     <?php } else { ?>
                         <?= $contract->status ?>
                     <?php } ?>
@@ -122,11 +118,11 @@
 
                     
                 </td>
-                <td>
-                    <?= $this->tag->linkTo(['#', '<i class="fas fa-file-alt"></i>', 'class' => 'text-primary get-template', 'data-contract' => $contract->id, 'data-toggle' => 'modal', 'data-target' => '#templatesModal']) ?>
+                <td class="text-center">
+                    <?= $this->tag->linkTo(['#', '<i class="fas fa-file-alt"></i>', 'class' => 'text-primary get-template pr-1', 'data-contract' => $contract->id, 'data-toggle' => 'modal', 'data-target' => '#templatesModal']) ?>
+                    <?= $this->tag->linkTo(['contract/edit/' . $contract->id, '<i class="fas fa-pencil-alt pr-1"></i>', 'class' => 'text-primary']) ?>
+                    <?= $this->tag->linkTo(['contract/delete/' . $contract->id, '<i class="fas fa-trash-alt"></i>', 'class' => 'text-danger']) ?>
                 </td>
-                <td><?= $this->tag->linkTo(['contract/edit/' . $contract->id, '<i class="fas fa-pencil-alt "></i>', 'class' => 'text-primary']) ?></td>
-                <td><?= $this->tag->linkTo(['contract/delete/' . $contract->id, '<i class="fas fa-trash-alt"></i>', 'class' => 'text-danger']) ?></td>
             </tr>
         <?php } ?>
        
@@ -147,4 +143,5 @@
 </div>
  <?php } ?>
 
+ 
 

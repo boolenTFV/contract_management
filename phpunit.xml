@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         bootstrap="tests/bootstrap.php"
+         cacheResult="true"
+         colors="true"
+         verbose="true">
+    <testsuites>
+        <testsuite name="models">
+            <directory suffix="Test.php">tests/models/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">app/</directory>
+            <exclude>
+                <directory suffix=".php">app/controllers</directory>
+		<directory suffix=".php">app/config</directory>
+		<directory suffix=".php">app/customhelpers</directory>
+		<directory suffix=".php">app/library</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <php>
+        <const name="TEST_RUN" value="true"/>
+    </php>
+    <logging>
+          <log type="coverage-html" target="tests/report"/>
+	  <log type="coverage-clover" target="tests/report/coverage.xml"/>
+	  <log type="junit" target="tests/report/report.xml"/>
+    </logging>
+</phpunit>

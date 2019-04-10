@@ -1,9 +1,12 @@
 <?php
 
 use Phalcon\Validation;
+use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email as EmailValidator;
+use Phalcon\Validation\Validator\Regex as RegexValidator;
 
-class User extends \Phalcon\Mvc\Model
+
+class User extends SuperModel
 {
 
     /**
@@ -68,7 +71,7 @@ class User extends \Phalcon\Mvc\Model
     public $department_id;
 
     /**
-     * Validations and business logic
+     * Валидация бизнес логики
      *
      * @return boolean
      */
@@ -77,20 +80,71 @@ class User extends \Phalcon\Mvc\Model
         $validator = new Validation();
 
         $validator->add(
+            [
+                "name",
+                "surname",
+                "email",
+                "pass",
+                "type",
+                "department_id"
+            ],
+            new PresenceOf(
+                [
+                    "message" => [
+                        "name" => "Имя - обязательное поле",
+                        "surname" => "Фамилия - обязательное поле",
+                        "patronymic" => "Отчество - обязательное поле",
+                        "email" => "Email - обязательное поле",
+                        "pass" => "Пароль - обязательное поле",
+                        "type" => "Тип пользователя не указан",
+                        "department_id" => "Отчество - обязательное поле"
+                    ],
+                ]
+            )
+        );
+        $validator->add(
             'email',
             new EmailValidator(
                 [
                     'model'   => $this,
-                    'message' => 'Please enter a correct email address',
+                    'message' => 'Введеный вами email не валиден',
                 ]
             )
         );
-
+        $pattern = "/^[А-Яа-я-]{2,40}$/u";
+        $validator->add(
+            [
+                "name",
+                "surname",
+                "patronymic",
+            ],
+            new RegexValidator(
+                [
+                    "pattern" => [
+                        "name" => $pattern,
+                        "surname"       => $pattern,
+                        "patronymic" => "/^(|[А-Яа-я-]{1,40})$/u"
+                    ],
+                    "message" => [
+                        "name" => 
+                            "Имя может содержать только символы 
+                                русского алфавита или символ дефис",
+                        "surname"       => 
+                            "Фамилия может содержать только символы 
+                                русского алфавита и символ дефис",
+                        "patronymic" => 
+                            "Отчество может содержать только символы 
+                                русского алфавита и символ дефис",
+                    ]
+                ]
+            )
+        );
         return $this->validate($validator);
     }
 
     /**
      * Initialize method for model.
+     * @codeCoverageIgnore
      */
     public function initialize()
     {
@@ -100,59 +154,13 @@ class User extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return User[]|User|\Phalcon\Mvc\Model\ResultSetInterface
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return User|\Phalcon\Mvc\Model\ResultInterface
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
-    /**
      * Returns table name mapped in the model.
      *
+     * @codeCoverageIgnore
      * @return string
      */
     public function getSource()
     {
         return 'user';
     }
-
-    //поиск по полям
-    public static function searchColumns($searchStr)
-    {
-        $search = explode(' ',$searchStr);
-        $searchColumns=['name','surname','patronymic','type'];
-        $query = self::query();
-        $paramIndex = 0;
-        $bindMass=[];
-        foreach ($search as $key => $tag) {
-            $andQueryStr = '';
-            foreach ($searchColumns as $colIndex => $column) {
-                if($colIndex===0){
-                    $andQueryStr = $column . ' LIKE ?'.$paramIndex;
-                }else{
-                    $andQueryStr .= ' OR '.$column . ' LIKE ?'.$paramIndex;
-                }      
-            }  
-            $bindMass[$paramIndex] = '%' . $tag . '%';
-            $paramIndex++;
-            $query->andWhere($andQueryStr);
-        }
-        $query->bind($bindMass);
-        return $query->execute();
-     }
 }

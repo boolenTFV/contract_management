@@ -19,7 +19,7 @@
     <div class="">
         {{ submit_button('Search', 'class': 'btn btn-default') }}
     </div>
-</div>
+</di
 {{ end_form() }}
 
 {% if page.total_pages !=null %}
@@ -28,7 +28,7 @@
         <thead>
             <tr>
                 <!--<th>Id</th>-->
-                <!--<th>Contract</th>-->
+                <!--<th>Contract</th>
                 <th>Template</th>
                 <th></th>
             </tr>
@@ -37,8 +37,8 @@
         {% if page.items is defined %}
         {% for document in page.items %}
             <tr>
-                <!--<td>{{ document.id }}</td>-->
-                <!--<td>{{ document.contract_id }}</td>-->
+                <!-- <td>{{ document.id }}</td> -->
+                <!-- <td>{{ document.contract_id }}</td> -->
                 <td>{{ document.template }}</td>
 
                 <td class="text-right">

@@ -26,7 +26,7 @@ class OrganizationController extends ControllerBase
         }
         $parameters = $this->persistent->parameters;
         $this->tag->setDefault("search", $parameters);
-        $organization = Organization::searchColumns($parameters);
+        $organization = Organization::searchColumns($parameters)->execute();
         if (count($organization) == 0) {
             $this->flash->notice("Поиск не дал результатов.");
         }

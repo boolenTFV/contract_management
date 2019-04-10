@@ -1,6 +1,6 @@
 <?php
 
-class WorkStage extends \Phalcon\Mvc\Model
+class WorkStage extends SuperModel
 {
 
     /**
@@ -35,6 +35,8 @@ class WorkStage extends \Phalcon\Mvc\Model
 
     /**
      * Initialize method for model.
+     * 
+     * @codeCoverageIgnore
      */
     public function initialize()
     {
@@ -44,30 +46,9 @@ class WorkStage extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return WorkStage[]|WorkStage|\Phalcon\Mvc\Model\ResultSetInterface
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return WorkStage|\Phalcon\Mvc\Model\ResultInterface
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
-    /**
      * Returns table name mapped in the model.
      *
+     * @codeCoverageIgnore
      * @return string
      */
     public function getSource()

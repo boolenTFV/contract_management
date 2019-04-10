@@ -30,6 +30,8 @@
     </p>
 </div>
 
+<div id = 'alerts'>
+</div>
 
 
 {{ form("contract/index", "method":"post", "autocomplete" : "off", "class" : "form-inline pb-4") }}
@@ -88,15 +90,17 @@
                 <td>{{ contract.end_date }}</td>
                 <td>{{ contract.contractor.organization.name }}</td>
                 <td>
+                    {{contract.status}}
                     {% if role != 'user' %}
-                            {{ form("contract/setstatus", "method":"post",  "class" : "form-inline mr-0 p-0") }}
+
                              <div class="form-group mr-0 p-0">
-                            {{ hidden_field("id","value":contract.id) }}
                             {% set options = ['unverified':'Не проверен',
                                               'verified':'Проверен',
                                               'active':'Активен',
                                               'closed':'Закрыт'] %}
-                            <select name ='status' class="bg-light form-control">
+
+                            <select name ='status' data-id = '{{contract.id}}' class="bg-light form-control">
+
                                 {% for value,option in options %}
                                     {% if value == contract.status %}
                                         <option value="{{value}}" selected>
@@ -108,15 +112,8 @@
                                         </option>
                                     {% endif %}
                                 {% endfor %}
-
                             </select>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary ml-1">
-                                    <i class="fas fa-save"></i>
-                                </button>
-                            </div>
                         </div>
-                        {{ end_form() }}
                     {%else%}
                         {{contract.status}}
                     {% endif %}
@@ -153,4 +150,5 @@
 </div>
  {% endif %}
 
+ 
 

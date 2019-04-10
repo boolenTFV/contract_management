@@ -1,6 +1,6 @@
 <div class="page-header">
     <h1>
-        Контрагенты
+        Контрагенты (заказчики)
     </h1>
     <p>
         {{ link_to("contractor/new", "Create contractor") }}
@@ -27,10 +27,10 @@
         <thead>
             <tr>
                 <th>Id</th>
-            <th>Name</th>
-            <th>Surename</th>
-            <th>Position</th>
-            <th>Organization</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Должность</th>
+            <th>Организация</th>
 
                 <th></th>
                 <th></th>

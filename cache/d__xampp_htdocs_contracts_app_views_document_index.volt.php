@@ -9,43 +9,26 @@
 
 <?= $this->getContent() ?>
 
-<?= $this->tag->form(['document/search', 'method' => 'post', 'autocomplete' => 'off', 'class' => 'form-horizontal']) ?>
+<?= $this->tag->form(['document/search', 'method' => 'post', 'autocomplete' => 'off', 'class' => 'form-inline']) ?>
 
-<div class="form-group">
-    <label for="fieldId" class="col-sm-2 control-label">Id</label>
-    <div class="col-sm-10">
-        <?= $this->tag->textField(['id', 'type' => 'numeric', 'class' => 'form-control', 'id' => 'fieldId']) ?>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="fieldContractId" class="col-sm-2 control-label">Contract</label>
-    <div class="col-sm-10">
-        <?= $this->tag->textField(['contract_id', 'type' => 'numeric', 'class' => 'form-control', 'id' => 'fieldContractId']) ?>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="fieldTemplate" class="col-sm-2 control-label">Template</label>
-    <div class="col-sm-10">
+<div class="form-group pb-3">
+    <label for="fieldTemplate" class="control-label pr-3">Поиск</label>
+    <div class="pr-1">
         <?= $this->tag->textField(['template', 'size' => 30, 'class' => 'form-control', 'id' => 'fieldTemplate']) ?>
     </div>
-</div>
-
-
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="">
         <?= $this->tag->submitButton(['Search', 'class' => 'btn btn-default']) ?>
     </div>
-</div>
+</di
+<?= $this->tag->endForm() ?>
 
 <?php if ($page->total_pages != null) { ?>
 <div class="row">
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Contract</th>
+                <!--<th>Id</th>-->
+                <!--<th>Contract</th>
                 <th>Template</th>
                 <th></th>
             </tr>
@@ -54,8 +37,8 @@
         <?php if (isset($page->items)) { ?>
         <?php foreach ($page->items as $document) { ?>
             <tr>
-                <td><?= $document->id ?></td>
-                <td><?= $document->contract_id ?></td>
+                <!-- <td><?= $document->id ?></td> -->
+                <!-- <td><?= $document->contract_id ?></td> -->
                 <td><?= $document->template ?></td>
 
                 <td class="text-right">

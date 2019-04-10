@@ -1,6 +1,6 @@
 <?php
 
-class Contract extends \Phalcon\Mvc\Model
+class Contract extends SuperModel
 {
 
     /**
@@ -161,14 +161,15 @@ class Contract extends \Phalcon\Mvc\Model
 
     public function getKeys(){
 
-        return ['contract_number',
-                'theme',
-                'product_name', 
-                'fine',
-                'surcharge',
-                'date',
-                'status',
-                'product_name'];
+        return ['contract_number', 'theme',
+                'product_name', 'fine',
+                'surcharge', 'surcharge_condition',
+                'date','status', 
+                'product_name','fine_conditions',
+                 'start_date','end_date', 
+                 'other_rights','product_use_method', 
+                 'pay_method','transfer_right', 'other_rights'
+                ];
     }
 
     /**
@@ -206,31 +207,6 @@ class Contract extends \Phalcon\Mvc\Model
     {
         return parent::findFirst($parameters);
     }
-
-
-    public static function searchColumns($searchStr)
-    {
-        $search = explode(' ',$searchStr);
-        $searchColumns=['contract_number','theme','product_name', 'fine','surcharge'];
-        $query = self::query();
-        $paramIndex = 0;
-        $bindMass=[];
-        foreach ($search as $key => $tag) {
-            $andQueryStr = '';
-            foreach ($searchColumns as $colIndex => $column) {
-                if($colIndex===0){
-                    $andQueryStr = $column . ' LIKE ?'.$paramIndex;
-                }else{
-                    $andQueryStr .= ' OR '.$column . ' LIKE ?'.$paramIndex;
-                }      
-            }  
-            $bindMass[$paramIndex] = '%' . $tag . '%';
-            $paramIndex++;
-            $query->andWhere($andQueryStr);
-        }
-        $query->bind($bindMass);
-        return $query->execute();
-     }
 
     /**
      * Returns table name mapped in the model.

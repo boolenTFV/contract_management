@@ -1,0 +1,2 @@
+
+"D:\Program Files(x86)\dwn\sonar qube\sonar-scanner-cli-3.3.0.1492-windows\sonar-scanner-3.3.0.1492-windows\bin\sonar-scanner.bat" -D"sonar.projectKey=contracts" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.login=2dda7b4f2977d8e39f386f26462d381112985b1e"

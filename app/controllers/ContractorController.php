@@ -26,10 +26,11 @@ class ContractorController extends ControllerBase
         }
         $parameters = $this->persistent->parameters;
         $this->tag->setDefault("search", $parameters);
-        $contractor = Contractor::searchColumns($parameters);
+        $contractor = Contractor::searchColumns($parameters)->execute();
         if (count($contractor) == 0) {
             $this->flash->notice("Поиск не дал результатов.");
         }
+        
 
         $paginator = new Paginator([
             'data' => $contractor,

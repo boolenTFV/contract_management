@@ -22,9 +22,8 @@ class UserController extends ControllerBase
         } else {
             $numberPage = $this->request->getQuery("page", "int");
         }
-        //$user = User::find($parameters);
         $parameters = $this->persistent->parameters;
-        $user = User::searchColumns($parameters);
+        $user = User::searchColumns($parameters)->execute();
         if (count($user) == 0) {
             $this->flash->notice("Поиск не дал результатов.");
         }

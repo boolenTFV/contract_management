@@ -24,7 +24,7 @@ class AccountingController extends ControllerBase
         }
         //$user = User::find($parameters);
         $parameters = $this->persistent->parameters;
-        $accountingPage = AccountingPage::searchColumns($parameters);
+        $accountingPage = AccountingPage::searchColumns($parameters)->execute();
         if (count($accountingPage) == 0) {
             $this->flash->notice("Поиск не дал результатов.");
         }

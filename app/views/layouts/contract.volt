@@ -1,5 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.js"></script>
 
+
 <div class="container-fluid flex-grow-1" style="padding-left: 90px; padding-right: 90px;">
     {{ content() }}
 </div>
@@ -93,4 +94,26 @@
 			}
 		});
 	});
+
+	{% if role is not empty and role != 'user' %}
+	        $("select[name='status']").on('change', function(){
+	            console.log('Изменение');
+	            data = {
+	            	id:$(this).data('id'),
+	            	status: $(this).val()
+	            };
+	            $.ajax({
+	                url:'{{url.get("contract/setstatus")}}',
+	                data: data,
+	                method: 'POST',
+	                error: function(error){
+	                    alert(error);
+	                },
+	                success: function(){
+	                    document.location.reload();
+	                }
+	            });
+	        });
+ 	{% endif %}
+
 </script>
